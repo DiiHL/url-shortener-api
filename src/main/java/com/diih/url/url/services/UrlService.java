@@ -49,7 +49,11 @@ public class UrlService {
     }
 
     public List<Url> links() {
-        return urlRepository.findAll();
+        List<Url> links = urlRepository.findAll();
+        if (links.isEmpty()) {
+            throw new NotFoundUrl("No links created");
+        }
+        return links;
     }
 
     @Transactional
