@@ -2,8 +2,8 @@ package com.diih.url.url.services;
 
 import com.diih.url.url.entity.Url;
 import com.diih.url.url.exception.ExpiredUrl;
+import com.diih.url.url.exception.NotFoundUrl;
 import com.diih.url.url.repository.UrlRepository;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,8 +40,8 @@ public class UrlService {
     }
 
     public Optional<Url> redirectUrl(String shortUrl) {
-        Url url = urlRepository.findByShortUrl(shortUrl).orElseThrow(() -> new EntityNotFoundException("URL not found"));
-
+        Url url = urlRepository.findByShortUrl(shortUrl)
+                .orElseThrow(() -> new NotFoundUrl("URL not found"));
         if (url.getTimeValid().isBefore(LocalDateTime.now())) {
             throw new ExpiredUrl("URL is expired");
         }
