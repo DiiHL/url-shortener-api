@@ -45,16 +45,8 @@ public class UrlController {
 
     @GetMapping("/links")
     public ResponseEntity<Object> getLinks() {
-        try {
-            List<Url> links = urlService.links();
-
-            if (links == null || links.isEmpty()) {
-                return ResponseEntity.badRequest().body("No links found");
-            }
-            return ResponseEntity.ok(links);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching links");
-        }
+        List<Url> links = urlService.links();
+        return ResponseEntity.ok(links);
     }
 
     @DeleteMapping("/delete/{shortUrl}")
