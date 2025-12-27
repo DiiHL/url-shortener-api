@@ -51,11 +51,8 @@ public class UrlController {
 
     @DeleteMapping("/delete/{shortUrl}")
     public ResponseEntity<?> deleteShortUrl(@PathVariable String shortUrl) {
-        try {
-            urlService.deleteShortUrl(shortUrl);
-            return ResponseEntity.noContent().build();
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Short URL not found");
-        }
+        urlService.deleteShortUrl(shortUrl);
+        return ResponseEntity.noContent().build();
+
     }
 }
