@@ -54,7 +54,9 @@ public class UrlService {
 
     @Transactional
     public void deleteShortUrl(String shortUrl) {
-        urlRepository.deleteByShortUrl(shortUrl);
+        Url url = urlRepository.findByShortUrl(shortUrl).orElseThrow(() -> new NotFoundUrl("URL not found"));
+
+        urlRepository.delete(url);
     }
 
     private String generateShortUrl(String Url) {
